@@ -14,6 +14,15 @@ dotenv.config({ path: './config/config.env' });
 
 const app = express();
 
+const logger = (req, res, next) => {
+  req.hello = 'Hellow World';
+  console.log('middleware run');
+  console.log(`${req.method} ${req.protocol}://${req.get('host')}${req.originalURL}`)
+  next();
+};
+
+app.use(logger);
+
 // Dev logging middleware
 //if (process.env.NODE_ENV === 'development') {
   //  app.use(morgan('dev'));
